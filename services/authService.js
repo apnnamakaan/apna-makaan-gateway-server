@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = "chER"
-
 const CustomError = require('../exceptions/exception');
 
 const User = require('../models/User');
@@ -24,7 +22,7 @@ async function login(req, res) {
         if (user == null) throw new CustomError("account not found");
 
         // Send Auth token
-        jwt.sign({ email: user.email, admin: user.admin }, SECRET_KEY, { expiresIn: "1d" }, (err, token) => {
+        jwt.sign({ email: user.email, admin: user.admin }, process.env.SECRET_KEY, { expiresIn: "1d" }, (err, token) => {
 
             if (err) res.send({ status: "false", message: err.message });
 
