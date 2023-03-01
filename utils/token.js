@@ -7,11 +7,13 @@ function authenticate(req, res, next) {
 
     const bearerHeader = req.headers.authorization;
 
-    if (typeof bearerHeader == "undefined")
+    if (typeof bearerHeader == "undefined") {
+        res.statusCode = 401;
         res.send({
             status: "false",
             message: "authorization header not found",
         });
+    }
 
     if (typeof bearerHeader !== "undefined") {
         const token = bearerHeader.split(" ")[1];
